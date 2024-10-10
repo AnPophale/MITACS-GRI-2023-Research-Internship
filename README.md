@@ -4,7 +4,7 @@
 I was one of the top 1000 students from India selected for the MITACS Globalink Research Internship 2023 to pursue a fully funded summer research internship at McMaster University, Canada. I worked on data driven modelling for microgel property prediction under Prof. Prashant Mhaskar in the Department of Chemical Engineering at McMaster University The final project presentation is available [here](https://github.com/AnPophale/MITACS-GRI-2023-Research-Internship/blob/main/Project%20Presentation.pdf). A brief explanation of the project is given below:
 
 **What are microgels?**  
-Microgels are colloidal gels, which are 3D cross linked polymer networks suspended in a solvent. For this project, we model the properties of pH and temperature multiresponsive microgels which are used as drug carriers in drug delivery applications. The Volume Phase Transition Temperature (VPTT) is an important property of these microgels which is the temperature at which they undergo a swelling/de-swelling transition.  
+Microgels are colloidal gels, which are 3D cross linked polymer networks suspended in a solvent. For this project, we model the properties of pH and temperature multi-responsive microgels which are used as drug carriers in drug delivery applications. The Volume Phase Transition Temperature (VPTT) is an important property of these microgels which is the temperature at which they undergo a swelling/de-swelling transition.  
 
 It is difficult to predict such properties of microgels from first principles based models because of the complex dynamics, difficult to measure parameters and coupling between physical and chemical mechanisms affecting the VPTT. Hence, a latent variable based data driven approach is used to model the VPTT directly in terms of the chemical composition used to synthesize the microgel which we call as the recipe. With such a model, a model inversion will allow us to predict the recipe for application tailored microgels. 
 
@@ -13,7 +13,7 @@ Partial Least Squares (PLS) modelling is a latent variable based approach that p
 * Loadings which are used to transform data between the original and latent spaces.
 * Scores which represent the data in this reduced latent space.
 
-The decomposition of the variables (X and Y) into scores (t,u) and the corresponding loadings (P,Q) is shown in Fig. 1 and the further explained in the following sections.The relation between the scores in the latent space is known as the inner PLS relation, while the relation between the original variables is known as the outer PLS relation. 
+The decomposition of the variables (X and Y) into scores (t,u) and the corresponding loadings (P,Q) is shown in Fig. 1 and the further explained in the following sections. The relation between the scores in the latent space is known as the inner PLS relation, while the relation between the original variables is known as the outer PLS relation. 
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/f1045041-356e-4c31-9576-d66306039f66" alt="Fig 1: Partial Least Squares approach" style="width: 40%;">
@@ -28,7 +28,7 @@ Steps involved PLS modelling:
 * Predictions: During prediction, the previously computed PLS loadings are used to project new independent data into the score space. The predicted scores for the dependent variables are calculated using the regression model, and these scores are then transformed back into the original space using the loadings.
 
 This procedure is similar to Principal Component Regression (PCR) but the key difference between PCR and PLS is the generation of scores. In PCR, the variables are projected to maximize their individual variance while PLS maximizes the covariance between the variables. The Nonlinear Iterative Partial Least Squares (NIPALS) algorithm is used to implement the PLS model in MATLAB. This procedure is described in Fig. 2, 
-where X and Y are the independent and dependent variables, b is the linear regression parameter, u and t are the PLS scores and w,p,q are the PLS loadings. h which is the number of PLS factors is a key parameter which needs to be tuned in PLS models and it represents the number of times the data is projected onto a lower dimensional latent space.
+where X and Y are the independent and dependent variables, b is the linear regression parameter, u and t are the PLS scores and w, p, q are the PLS loadings. h which is the number of PLS factors is a key parameter which needs to be tuned in PLS models and it represents the number of times the data is projected onto a lower dimensional latent space.
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/16b91f6b-a2a4-4e60-a1c6-2ede10ea5e21" alt="Fig 2: The NIPALS Algorithm" style="width: 80%;">
@@ -56,7 +56,7 @@ The first method is a simple PLS approach to predict the swelling profiles as de
   <em>Figure 4: Hard vs Soft Clustering</em>
 </p>
 
-In this project, the key idea is to test if fuzzy clustering performs well than k means clustering in this approach. k means clustering is a type of hard clustering in case of which each data point belongs to only one cluster. On the other hand, fuzzy or c means clustering is a soft clustering technique wherein each data point has a certain probability of being in each of the cluster which generates a membership matrix for all data points and clusters. This difference between k means and fuzzy clustering in highlighted in Fig. 4.Further, we use a weighted average of the predictions from different PLS models using the membership matrix. In case of fuzzy clustering another important parameter is the f, which affects the amount of overlap between clusters. A f value of 0 represents no overlapping between clusters which is equivalent to k means clustering. Both the clustering methods follow an iterative algorithm to calculate the cluster centers based on the minimization of an objective function based on the distances of all data points from the cluster centers.
+In this project, the key idea is to test if fuzzy clustering performs better than k means clustering in this approach. k means clustering is a type of hard clustering in case of which each data point belongs to only one cluster. On the other hand, fuzzy or c means clustering is a soft clustering technique wherein each data point has a certain probability of being in each of the cluster which generates a membership matrix for all data points and clusters. This difference between k means and fuzzy clustering in highlighted in Fig. 4. Further, we use a weighted average of the predictions from different PLS models using the membership matrix. In case of fuzzy clustering another important parameter is the f, which affects the amount of overlap between clusters. A f value of 0 represents no overlapping between clusters which is equivalent to k means clustering. Both the clustering methods follow an iterative algorithm to calculate the cluster centers based on the minimization of an objective function based on the distances of all data points from the cluster centers.
 
 Based on the previous discussion, in this work we compare the performance of following types of PLS models:
 * Linear PLS
@@ -71,10 +71,10 @@ Based on the previous discussion, in this work we compare the performance of fol
   <em>Figure 5: Fuzzy clustering based PLS model suggested in this study</em>
 </p>
 
-* Outer Fuzzy PLS 2 (From literature) - Fuzzy clustering applied to the data in the original space and each data point is assigned to the cluster in which is has highest membership value.
+* Outer Fuzzy PLS 2 (From literature) - Fuzzy clustering applied to the data in the original space and each data point is assigned to the cluster in which it has highest membership value.
 
 **Results and Conclusions:**  
-As the training data is limited, a jackknife approach is used, where one observation is excluded from the dataset during training and later used for testing. This ensures that the model is tested on an unseen sample, and this process is repeated for all data points. Another approach used is similar to a k-fold cross validation, where we separate out k observations from the data for testing and use the rest of the data for training. In each of the methods different combinations of the parameters h,c, and f are used as defined previosuly and the parameters with the best overall results are selected.
+As the training data is limited, a jackknife approach is used, where one observation is excluded from the dataset during training and later used for testing. This ensures that the model is tested on an unseen sample, and this process is repeated for all data points. Another approach used is similar to a k-fold cross validation, where we separate out k observations from the data for testing and use the rest of the data for training. In each of the methods different combinations of the parameters h, c, and f are used as defined previously and the parameters with the best overall results are selected.
 
 Some of the results using the above methods are given in the figures below:
 
